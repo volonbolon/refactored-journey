@@ -11,32 +11,47 @@ import Foundation
 enum WeatherError: Error {
     case urlError
     case illFormattedLocation
+    case illFormattedUnit
 }
 
 class Weather {
-    func getTemperature(location: String, completionHandler: @escaping (String) -> Void) throws {
-        let na = NSLocalizedString("NA", comment: "NA")
-        guard location.count > 3 else {
-            completionHandler(na)
-            throw WeatherError.illFormattedLocation
-        }
-        guard var URL = URL(string: "https://query.yahooapis.com/v1/public/yql") else {
-            completionHandler(na)
-            throw WeatherError.urlError
-        }
-
+    private func buildRequest(url: URL, input: Input) -> URLRequest {
+        let location = input.location
+        let unit = input.unit
         let URLParams = [
             "q": """
             select item.condition from weather.forecast where woeid in
             (select woeid from geo.places(1) where text=\"\(location.lowercased())\")
-            and u='c'
+            and u='\(unit)'
             """,
             "format": "json",
             "env": "store://datatables.org/alltableswithkeys"
         ]
-        URL = URL.appendingQueryParameters(URLParams)
+        let URL = url.appendingQueryParameters(URLParams)
         var request = URLRequest(url: URL)
         request.httpMethod = "GET"
+        return request
+    }
+
+    func getTemperature(input: Input, completionHandler: @escaping (String) -> Void) throws {
+        let na = NSLocalizedString("NA", comment: "NA")
+        let location = input.location
+        let unit = input.unit
+
+        guard location.count > 3 else {
+            completionHandler(na)
+            throw WeatherError.illFormattedLocation
+        }
+        guard let URL = URL(string: "https://query.yahooapis.com/v1/public/yql") else {
+            completionHandler(na)
+            throw WeatherError.urlError
+        }
+        guard unit.lowercased() == "c" || unit.lowercased() == "f" else {
+            completionHandler(na)
+            throw WeatherError.illFormattedUnit
+        }
+
+        let request = self.buildRequest(url: URL, input: input)
 
         let session = URLSession.shared
         let task = session.dataTask(with: request) { (data: Data?, _: URLResponse?, error: Error?) in
@@ -67,7 +82,7 @@ class Weather {
         task.resume()
     }
 }
-//
+
 protocol URLQueryParameterStringConvertible {
     var queryParameters: String {get}
 }
