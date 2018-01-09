@@ -19,10 +19,9 @@ let weather = Weather()
 let semaphore = DispatchSemaphore(value: 0)
 
 do {
-    try weather.getTemperature(location: "buenos Aires, argentina") { (temp: String?) in
-        if let temperature = temp {
-            print(temperature)
-        }
+    try weather.getTemperature(location: "buenos Aires, argentina") { (temp: String) in
+        print("Temp: \(temp)°C")
+        semaphore.signal()
     }
 } catch {
     print(error)
