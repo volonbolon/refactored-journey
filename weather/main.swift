@@ -10,3 +10,22 @@ import Foundation
 
 print("Hello, World!")
 
+for arg in CommandLine.arguments {
+    print(arg)
+}
+
+let weather = Weather()
+
+let semaphore = DispatchSemaphore(value: 0)
+
+do {
+    try weather.getTemperature(location: "buenos Aires, argentina") { (temp: String?) in
+        if let temperature = temp {
+            print(temperature)
+        }
+    }
+} catch {
+    print(error)
+}
+
+_ = semaphore.wait(timeout: DispatchTime.distantFuture)
