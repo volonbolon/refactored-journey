@@ -8,7 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		B083DE0D2003C528000B9B62 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = B083DE0C2003C528000B9B62 /* main.swift */; };
-		B083DE152003CE2F000B9B62 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = B083DE142003CE2F000B9B62 /* Weather.swift */; };
+		B0DCF2C72009381C00971177 /* Either.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DCF2C62009381C00971177 /* Either.swift */; };
+		B0DCF2CC2009382300971177 /* OpenWeatherMapDataMappings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DCF2C82009382300971177 /* OpenWeatherMapDataMappings.swift */; };
+		B0DCF2CD2009382300971177 /* URLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DCF2C92009382300971177 /* URLHelper.swift */; };
+		B0DCF2CE2009382300971177 /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DCF2CA2009382300971177 /* NetworkController.swift */; };
+		B0DCF2CF2009382300971177 /* OpenWeatherMapNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DCF2CB2009382300971177 /* OpenWeatherMapNetworkController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,7 +30,11 @@
 /* Begin PBXFileReference section */
 		B083DE092003C528000B9B62 /* weather */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = weather; sourceTree = BUILT_PRODUCTS_DIR; };
 		B083DE0C2003C528000B9B62 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		B083DE142003CE2F000B9B62 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
+		B0DCF2C62009381C00971177 /* Either.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Either.swift; sourceTree = "<group>"; };
+		B0DCF2C82009382300971177 /* OpenWeatherMapDataMappings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenWeatherMapDataMappings.swift; sourceTree = "<group>"; };
+		B0DCF2C92009382300971177 /* URLHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLHelper.swift; sourceTree = "<group>"; };
+		B0DCF2CA2009382300971177 /* NetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
+		B0DCF2CB2009382300971177 /* OpenWeatherMapNetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenWeatherMapNetworkController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,10 +67,30 @@
 		B083DE0B2003C528000B9B62 /* weather */ = {
 			isa = PBXGroup;
 			children = (
+				B0DCF2C42009380300971177 /* Helpers */,
 				B083DE0C2003C528000B9B62 /* main.swift */,
-				B083DE142003CE2F000B9B62 /* Weather.swift */,
 			);
 			path = weather;
+			sourceTree = "<group>";
+		};
+		B0DCF2C42009380300971177 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B0DCF2C62009381C00971177 /* Either.swift */,
+				B0DCF2C52009381000971177 /* Networking */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		B0DCF2C52009381000971177 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				B0DCF2CA2009382300971177 /* NetworkController.swift */,
+				B0DCF2C82009382300971177 /* OpenWeatherMapDataMappings.swift */,
+				B0DCF2CB2009382300971177 /* OpenWeatherMapNetworkController.swift */,
+				B0DCF2C92009382300971177 /* URLHelper.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,7 +169,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B083DE152003CE2F000B9B62 /* Weather.swift in Sources */,
+				B0DCF2CD2009382300971177 /* URLHelper.swift in Sources */,
+				B0DCF2CC2009382300971177 /* OpenWeatherMapDataMappings.swift in Sources */,
+				B0DCF2CF2009382300971177 /* OpenWeatherMapNetworkController.swift in Sources */,
+				B0DCF2CE2009382300971177 /* NetworkController.swift in Sources */,
+				B0DCF2C72009381C00971177 /* Either.swift in Sources */,
 				B083DE0D2003C528000B9B62 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

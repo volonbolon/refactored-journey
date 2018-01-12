@@ -8,12 +8,7 @@
 
 import Foundation
 
-struct Input {
-    let location: String
-    let unit: String
-}
-
-func parseInput() -> Input {
+func parseInput() -> Input? {
     var location = ""
     var unit = "C"
     let arguments = CommandLine.arguments
@@ -52,26 +47,43 @@ func parseInput() -> Input {
         }
     }
 
-    let input = Input(location: location, unit: unit)
-    return input
+    if let temperatureUnit = TemperatureUnit(code: unit) {
+        let input = Input(location: location, unit: temperatureUnit)
+        return input
+    }
+
+    return nil
 }
 
 func retrieveTemp(input: Input) {
-    let weather = Weather()
-
     let semaphore = DispatchSemaphore(value: 0)
-
-    do {
-        try weather.getTemperature(input: input) { (temp: String) in
-            print("Temp: \(temp)°\(input.unit)")
-            semaphore.signal()
-        }
-    } catch {
-        print(error)
+    let controller = OpenWeatherMapNetworkController()
+    controller.fetchCurrentWeatherData(input: input) { (result: Either<NetworkControllerError, WeatherData>) in
+//        DispatchQueue.main.async {
+            switch result {
+            case .left:
+                printHelp()
+            case .right(let data):
+                let city = input.location
+                print("Weather in \(city): \(data.condition), \(data.temperature)\(data.unit)")
+                semaphore.signal()
+            }
+//        }
     }
-
     _ = semaphore.wait(timeout: DispatchTime.distantFuture)
 }
 
-let input = parseInput()
-retrieveTemp(input: input)
+func printHelp() {
+    let warningString = """
+HELP: You need to provide the location, and, if you provide the unit,
+it should be [S]cientific, [C]elcius or [F]ahrenheit
+"""
+    let warning = NSLocalizedString(warningString, comment: "Warning String")
+    print(warning)
+}
+
+if let input = parseInput() {
+    retrieveTemp(input: input)
+} else {
+    printHelp()
+}
