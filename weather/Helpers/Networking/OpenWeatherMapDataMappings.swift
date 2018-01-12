@@ -2,8 +2,6 @@
 //  OpenWeatherMapDataMappings.swift
 //  WeatherApp
 //
-//  Created by Nyisztor, Karoly on 10/26/17.
-//  Copyright © 2017 Nyisztor, Karoly. All rights reserved.
 //
 
 import Foundation
